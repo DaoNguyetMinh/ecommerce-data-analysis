@@ -42,7 +42,25 @@ GROUP BY EXTRACT (YEAR FROM o.order_purchase_timestamp)
 ORDER BY order_purchase_year;
 -- --------------------------------------------------------
 -- 3. AOV
+WITH payment_agg AS (
+	SELECT order_id,
+		SUM(payment_value) AS total_payment
+	FROM olist_order_payments_dataset
+	GROUP BY order_id
+)
 
+SELECT SUM(p.total_payment)/COUNT(DISTINCT o.order_id) AS AOV
+FROM olist_orders_dataset o
+JOIN payment_agg p
+	ON o.order_id = p.order_id
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
 -- --------------------------------------------------------
--- 4. Top 5 Customers
+-- 4. Top 5 Customers by Revenue
+WITH payment_agg AS (
+	SELECT order_id,
+		SUM(payment_value) AS total_payment
+	FROM olist_order_payments_dataset
+	GROUP BY order_id
+)
+
 -- --------------------------------------------------------
