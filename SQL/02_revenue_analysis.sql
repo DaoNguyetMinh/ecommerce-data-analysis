@@ -31,17 +31,24 @@ WITH payment_agg AS (
 		SUM(payment_value) AS total_payment
 	FROM olist_order_payments_dataset
 	GROUP BY order_id
+),
+yearly_revenue AS (
+	SELECT 
+		EXTRACT(YEAR FROM o.order_purchase_timestamp) AS year,
+		SUM(p.total_payment) AS revenue
+	FROM olist_orders_dataset o
+	JOIN payment_agg p
+		ON o.order_id = p.order_id
+	WHERE o.order_status NOT IN ('canceled', 'unavailable')
+	GROUP BY year
 )
 
-SELECT
-	EXTRACT (YEAR FROM o.order_purchase_timestamp) AS order_purchase_year,
-	SUM(p.total_payment) AS total_revenue
-FROM olist_orders_dataset o
-JOIN payment_agg p
-	ON o.order_id = p.order_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY EXTRACT (YEAR FROM o.order_purchase_timestamp)
-ORDER BY order_purchase_year;
+SELECT year,
+	   revenue,
+	   ROUND((revenue - LAG(revenue) OVER (ORDER BY year))
+	   /
+	   LAG(revenue) OVER (ORDER BY year) * 100, 2) AS growth_percent
+FROM yearly_revenue;
 -- Insight: Revenue increased by 16,488.06% from 2016 to 2018.
 -- --------------------------------------------------------
 -- 3. Average Order Value (AOV)
@@ -51,7 +58,6 @@ WITH payment_agg AS (
 	FROM olist_order_payments_dataset
 	GROUP BY order_id
 )
-
 SELECT SUM(p.total_payment)/COUNT(DISTINCT o.order_id) AS AOV
 FROM olist_orders_dataset o
 JOIN payment_agg p
@@ -77,25 +83,26 @@ ORDER BY total_revenue DESC
 LIMIT 5;
 -- --------------------------------------------------------
 -- Top 10 Products by Revenue
-WITH product_revenue AS (
-	SELECT product_id,
-		SUM(price + freight_value) AS revenue
-	FROM olist_order_items_dataset
-	GROUP BY product_id
-),
-
-top_products AS (
-	SELECT *
-	FROM product_revenue
-	ORDER BY revenue DESC
-	LIMIT 10
-)
-
-SELECT SUM(revenue) * 100.0 / (SELECT SUM(revenue) FROM product_revenue) AS top_10_revenue_percentage
-FROM top_products;
+SELECT i.product_id,
+	SUM(i.price + i.freight_value) AS product_revenue
+FROM olist_orders_dataset o
+JOIN olist_order_items_dataset i
+	ON o.order_id = i.order_id
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
+GROUP BY i.product_id
+ORDER BY product_revenue DESC
+LIMIT 10;
 -- --------------------------------------------------------------------------------
 -- Top 10 Sellers by Revenue
-
+SELECT i.seller_id,
+	SUM(i.price + i.freight_value) AS seller_revenue
+FROM olist_orders_dataset o
+JOIN olist_order_items_dataset i
+	ON o.order_id = i.order_id
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
+GROUP BY i.seller_id
+ORDER BY seller_revenue DESC
+LIMIT 10;
 
 
 
