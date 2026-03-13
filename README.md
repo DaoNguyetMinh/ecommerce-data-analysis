@@ -1,4 +1,4 @@
-\# Overview
+# Overview
 
 
 
@@ -14,7 +14,7 @@ The dataset covers the period from 2016 to 2018, during which Brazil experienced
 
 
 
-\## Dataset Context
+## Dataset Context
 
 
 
@@ -30,23 +30,21 @@ Given the competitive nature of the e-commerce market and fluctuations in consum
 
 
 
-\## Business Questions
+## Business Questions
 
 
 
 The analysis aims to answer the following business questions:
 
+- How is revenue distributed over the period from 2016 to 2018?
 
+- Which product categories contribute the most to total revenue?
 
-\- How is revenue distributed over the period from 2016 to 2018?
+- Which customer segments have the greatest impact on revenue?
 
-\- Which product categories contribute the most to total revenue?
+- Does revenue show an increasing or decreasing trend over time?
 
-\- Which customer segments have the greatest impact on revenue?
-
-\- Does revenue show an increasing or decreasing trend over time?
-
-\- Are there differences in revenue trends across product categories and customer segments?
+- Are there differences in revenue trends across product categories and customer segments?
 
 
 
@@ -54,7 +52,7 @@ The analysis aims to answer the following business questions:
 
 
 
-\## Analysis Approach
+## Analysis Approach
 
 
 

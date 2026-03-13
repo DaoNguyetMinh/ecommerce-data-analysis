@@ -72,13 +72,17 @@ WITH payment_agg AS (
 	GROUP BY order_id
 )
 
-SELECT o.customer_id, 
-	SUM(p.total_payment) AS total_revenue
+SELECT o.customer_id,
+	   c.customer_city,
+	   c.customer_state,
+	   SUM(p.total_payment) AS total_revenue
 FROM olist_orders_dataset o
 JOIN payment_agg p
 	ON o.order_id = p.order_id
+JOIN olist_customers_dataset c
+	ON o.customer_id = c.customer_id
 WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY o.customer_id
+GROUP BY c.customer_city, c.customer_state, o.customer_id
 ORDER BY total_revenue DESC
 LIMIT 5;
 -- --------------------------------------------------------
@@ -103,14 +107,18 @@ LIMIT 10;
 -- --------------------------------------------------------------------------------
 -- Top 10 Sellers by Revenue
 SELECT i.seller_id,
-	SUM(i.price + i.freight_value) AS seller_revenue
+	   s.seller_city,
+	   s.seller_state,
+	   SUM(i.price + i.freight_value) AS seller_revenue
 FROM olist_orders_dataset o
 JOIN olist_order_items_dataset i
 	ON o.order_id = i.order_id
+JOIN olist_sellers_dataset s
+	ON i.seller_id = s.seller_id
 WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY i.seller_id
+GROUP BY s.seller_city, s.seller_state, i.seller_id
 ORDER BY seller_revenue DESC
-LIMIT 10;
+LIMIT 5;
 
 
 
