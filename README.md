@@ -1,62 +1,30 @@
 # Overview
+This project analyzes the Brazilian E-Commerce Public Dataset by Olist to evaluate marketplace performance, understand customer purchasing behavior, and identify key revenue drivers. The goal is to translate raw transactional data into business insights that can support growth, category prioritization, and customer strategy.
 
-
-
-This project analyzes sales data from the Brazilian E-Commerce Public Dataset by Olist, available on Kaggle. The objective of the analysis is to understand business performance, customer behavior, and key revenue drivers in a highly competitive e-commerce environment.
-
-
-
-The dataset covers the period from 2016 to 2018, during which Brazil experienced economic and political instability. These external factors may have influenced consumer spending patterns and purchasing behavior, making data-driven analysis essential for business decision-making.
-
-
+The dataset covers the period from 2016 to 2018, a time when Brazil experienced economic and political instability. In a competitive e-commerce environment, understanding where revenue comes from and which customers and product categories contribute most is essential for making better business decisions.
 
 ---
-
-
 
 ## Dataset Context
+Olist is a Brazilian e-commerce platform that enables small and medium-sized sellers to distribute products across multiple online marketplaces through a single integration. In addition to marketplace access, Olist also supports logistics and fulfillment operations.
 
-
-
-Olist is an e-commerce platform that enables small and medium-sized retailers in Brazil to sell their products across multiple online marketplaces through a single integration. In addition to providing marketplace access, Olist also supports order fulfillment through logistics partners.
-
-
-
-Given the competitive nature of the e-commerce market and fluctuations in consumer demand, this project focuses on identifying key product categories and customer segments that contribute most significantly to revenue.
-
-
+Because Olist operates as a multi-seller marketplace, business performance depends not only on total sales, but also on category mix, customer value, seller contribution, and order fulfillment quality. This project focuses on analyzing these dimensions to uncover growth patterns and potential business opportunities.
 
 ---
-
-
 
 ## Business Questions
-
-
-
 The analysis aims to answer the following business questions:
 
-- How is revenue distributed over the period from 2016 to 2018?
-
-- Which product categories contribute the most to total revenue?
-
-- Which customer segments have the greatest impact on revenue?
-
-- Does revenue show an increasing or decreasing trend over time?
-
-- Are there differences in revenue trends across product categories and customer segments?
-
-
+1. How has revenue changed over time from 2016 to 2018?
+2. Is revenue growth driven mainly by order volume or average order value?
+3. Which product categories contribute the most to total revenue, and how concentrated is revenue across categories?
+4. Which customer groups generate the highest revenue and purchasing value?
+5. Are there meaningful differences in revenue trends across product categories and customer segments?
+6. What patterns in the data can help explain business growth opportunities and potential risks?
 
 ---
-
-
 
 ## Analysis Approach
 
-
-
-The analysis begins by examining revenue trends over time to assess overall business performance. Based on these findings, subsequent analyses focus on identifying the main factors driving changes in revenue, including order volume, average order value, product categories, and customer segments.
-
-
+The analysis begins with overall revenue performance to understand the business trend over time. It then breaks revenue down into key drivers such as order volume and average order value. After that, the analysis drills down into product categories, customers, and sellers to identify the main contributors to business performance. Finally, findings are translated into actionable insights and business recommendations.
 
