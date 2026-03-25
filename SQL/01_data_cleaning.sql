@@ -111,7 +111,45 @@ LEFT JOIN olist_order_payments_dataset p
 	   ON o.order_id = p.order_id
 WHERE p.order_id IS NULL;
 
--- ----------------------------------------------
+-- Diff between payment and total order value
+WITH payment_agg AS (
+	SELECT order_id,
+		   SUM(payment_value) AS total_payment
+	FROM olist_order_payments_dataset
+	GROUP BY order_id
+),
+
+order_value AS (
+	SELECT order_id,
+		   SUM(price + freight_value) AS total_order_value
+	FROM olist_order_items_dataset
+	GROUP BY order_id
+)
+
+SELECT p.order_id,
+	   p.total_payment,
+	   o.total_order_value,
+	   (p.total_payment - o.total_order_value) AS diff
+FROM payment_agg p
+JOIN order_value o
+  ON p.order_id = o.order_id
+WHERE ABS(p.total_payment - o.total_order_value) > 1
+ORDER BY diff DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
