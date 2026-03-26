@@ -28,3 +28,18 @@ The analysis aims to answer the following business questions:
 
 The analysis begins with overall revenue performance to understand the business trend over time. It then breaks revenue down into key drivers such as order volume and average order value. After that, the analysis drills down into product categories, customers, and sellers to identify the main contributors to business performance. Finally, findings are translated into actionable insights and business recommendations.
 
+## Analysis Assumptions
+- Valid orders are defined as orders excluding 'canceled' and 'unavailable' statuses.
+- Overall revenue is measured using 'payment_value' aggregated at the order level.
+- Product and seller contribution analysis uses item-level revenue approximated by 'price + freight_value'.
+- Time-based analysis is primarily performed at the monthly level because yearly coverage in the dataset is uneven.
+
+
+
+
+
+
+
+
+
+
