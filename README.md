@@ -1,3 +1,4 @@
+DNM
 # Overview
 This project analyzes the Brazilian E-Commerce Public Dataset by Olist to evaluate marketplace performance, understand customer purchasing behavior, and identify key revenue drivers. The goal is to translate raw transactional data into business insights that can support growth, category prioritization, and customer strategy.
 
