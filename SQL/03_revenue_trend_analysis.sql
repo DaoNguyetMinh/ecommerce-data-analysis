@@ -53,7 +53,7 @@ WHERE o.order_status NOT IN ('canceled', 'unavailable')
 GROUP BY category
 ORDER BY revenue_item DESC;
 -- ------------------------------------------------------------------------------------
--- Revenue by Customer
+-- Revenue by Customer Segment
 WITH payment_agg AS (
 	SELECT order_id,
 		   SUM(payment_value) AS total_payment
@@ -93,30 +93,69 @@ SELECT segment,
 FROM customer_segment
 GROUP BY segment
 ORDER BY total_revenue DESC;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- 3. Average Order Value (AOV)
+-- -----------------------------------------------------------------------------------
+-- 3. AOV by Month
 WITH payment_agg AS (
 	SELECT order_id,
 		SUM(payment_value) AS total_payment
 	FROM olist_order_payments_dataset
 	GROUP BY order_id
+),
+
+monthly_metrics AS (
+	SELECT DATE_TRUNC('month', o.order_purchase_timestamp) AS month,
+		   SUM(p.total_payment) AS revenue,
+		   COUNT(DISTINCT o.order_id) AS orders,
+		   ROUND(SUM(p.total_payment) / COUNT(DISTINCT o.order_id), 2) AS AOV
+	FROM olist_orders_dataset o
+	JOIN payment_agg p
+	  ON o.order_id = p.order_id
+	WHERE o.order_status NOT IN ('canceled', 'unavailable')
+	GROUP BY 1
+	ORDER BY 1
 )
-SELECT SUM(p.total_payment)/COUNT(DISTINCT o.order_id) AS AOV
-FROM olist_orders_dataset o
-JOIN payment_agg p
-	ON o.order_id = p.order_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable');
+
+SELECT month,
+	   revenue,
+	   orders,
+	   AOV,
+	   ROUND((AOV - LAG(AOV) OVER (ORDER BY month)) / LAG(AOV) OVER (ORDER BY month)*100, 2) AS AOV_growth
+FROM monthly_metrics
+-- ------------------------------------------------------------------------------------------
+-- AOV by Category
+WITH order_category AS (
+	SELECT o.order_id,
+		   COALESCE(p.product_category_name, 'Unknown') AS category,
+		   SUM(i.price + i.freight_value) AS order_category_revenue
+	FROM olist_orders_dataset o
+	JOIN olist_order_items_dataset i
+	  ON o.order_id = i.order_id
+	LEFT JOIN olist_products_dataset p
+	       ON i.product_id = p.product_id
+	WHERE o.order_status NOT IN ('canceled', 'unavailable')
+	GROUP BY o.order_id, category
+)
+
+SELECT category,
+	   SUM(order_category_revenue) AS revenue,
+	   COUNT(DISTINCT order_id) AS orders,
+	   ROUND(SUM(order_category_revenue)/COUNT(DISTINCT order_id), 2) AS AOV
+FROM order_category
+GROUP BY category
+ORDER BY AOV DESC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
