@@ -93,6 +93,20 @@ SELECT segment,
 FROM customer_segment
 GROUP BY segment
 ORDER BY total_revenue DESC;
+-- --------------------------------------------------------------------------------------------
+-- AOV overall approximate 160
+WITH payment_agg AS (
+	SELECT order_id,
+		SUM(payment_value) AS total_payment
+	FROM olist_order_payments_dataset
+	GROUP BY order_id
+)
+
+SELECT SUM(p.total_payment)/COUNT(DISTINCT o.order_id) AS AOV
+FROM olist_orders_dataset o
+JOIN payment_agg p
+	ON o.order_id = p.order_id
+WHERE o.order_status NOT IN ('canceled', 'unavailable')
 -- -----------------------------------------------------------------------------------
 -- 3. AOV by Month
 WITH payment_agg AS (
@@ -143,19 +157,46 @@ SELECT category,
 FROM order_category
 GROUP BY category
 ORDER BY AOV DESC;
+-- ----------------------------------------------------------------------------------------
+-- AOV by Customer Segment
+WITH payment_agg AS (
+	SELECT order_id,
+		   SUM(payment_value) AS total_payment
+	FROM olist_order_payments_dataset
+	GROUP BY order_id
+),
 
+customer_orders AS (
+	SELECT c.customer_unique_id,
+		   p.total_payment,
+		   o.order_id
+	FROM olist_orders_dataset o
+	JOIN payment_agg p
+	  ON o.order_id = p.order_id
+	JOIN olist_customers_dataset c
+	  ON o.customer_id = c.customer_id
+	WHERE o.order_status NOT IN ('canceled', 'unavailable')
+),
 
+customer_segment AS (
+	SELECT customer_unique_id,
+		   COUNT(order_id) AS total_orders,
+		   CASE 
+		   	   WHEN COUNT(order_id) = 1 THEN 'One-time'
+			   WHEN COUNT(order_id) BETWEEN 2 AND 5 THEN 'Repeat'
+			   ELSE 'High-value'
+		   END AS segment
+	FROM customer_orders
+	GROUP BY customer_unique_id
+)
 
-
-
-
-
-
-
-
-
-
-
-
-
+SELECT s.segment,
+	   COUNT(DISTINCT co.order_id) AS orders,
+	   SUM(co.total_payment) AS revenue,
+	   ROUND(SUM(co.total_payment)/COUNT(DISTINCT co.order_id), 2) AS AOV
+FROM customer_orders co
+JOIN customer_segment s
+  ON co.customer_unique_id = s.customer_unique_id
+GROUP BY s.segment
+ORDER BY AOV DESC;
 
