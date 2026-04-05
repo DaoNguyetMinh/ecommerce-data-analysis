@@ -24,9 +24,13 @@ This indicates that the marketplace follows a long-tail sales pattern, where a l
 * AOV by category: High-AOV categories such as "pcs" generate relatively low revenue, indicating niche demand with high-value products. In contrast, categories like "beleza\_saude" and "relogios\_presentes" contribute significantly to total revenue despite having moderate AOV, suggesting that business growth is primarily driven by high order volume rather than high-value transactions. This highlights a clear distinction between high-value niche categories and high-volume core categories.
 * AOV by customer segment: Revenue is heavily concentrated in one-time customers, who account for the vast majority of both orders and total revenue. Interestingly, one-time customers also exhibit the highest AOV, while repeat and high-value customers show lower spending per order. This suggests that the business lacks strong customer retention, and returning customers do not demonstrate higher purchasing value as typically expected.
 
-
+\----------------------------------------------------------------------------------
 
 * Insight data story from AOV + revenue: Revenue growth is primarily driven by a significant increase in order volume rather than higher spending per order, as AOV shows a slight declining trend over time. This growth is largely fueled by one-time customers, who dominate both total orders and revenue contribution. However, these customers exhibit relatively moderate spending behavior, contributing to the overall decline in AOV. In contrast, repeat and high-value customers represent only a small portion of the customer base and do not demonstrate higher AOV as typically expected. This indicates that the business lacks strong customer retention and fails to generate higher-value transactions from returning customers. Overall, the business appears to rely heavily on acquiring new customers rather than building long-term customer value.
+
+\-----------------------------------------------------------------------------------
+
+* Insight customer order frequency buckets: A significant 94% of customers place only a single order, indicating extremely low customer retention. These one-time customers contribute the vast majority of total revenue, while repeat and high-frequency customers represent only a small fraction of both the customer base and revenue contribution. This distribution suggests that the business relies heavily on continuous customer acquisition rather than building long-term customer value, highlighting a major opportunity to improve retention and repeat purchase behavior.
 
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
