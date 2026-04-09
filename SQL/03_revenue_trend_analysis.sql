@@ -102,7 +102,7 @@ WITH payment_agg AS (
 	GROUP BY order_id
 )
 
-SELECT SUM(p.total_payment)/COUNT(DISTINCT o.order_id) AS AOV
+SELECT ROUND(SUM(p.total_payment)/COUNT(DISTINCT o.order_id), 2) AS AOV
 FROM olist_orders_dataset o
 JOIN payment_agg p
 	ON o.order_id = p.order_id
