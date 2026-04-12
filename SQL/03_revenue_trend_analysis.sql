@@ -39,20 +39,6 @@ SELECT month,
 	   LAG(revenue) OVER (ORDER BY month) * 100, 2) AS MoM
 FROM monthly_revenue;
 -- --------------------------------------------------------
--- Revenue by Category
-SELECT COALESCE(p.product_category_name, 'Unknown') AS category,
-	   SUM(i.price + i.freight_value) AS revenue_item,
-	   ROUND(SUM(i.price + i.freight_value)*100 
-	   	   / SUM(SUM(i.price + i.freight_value)) OVER (), 2) AS revenue_percent
-FROM olist_orders_dataset o
-JOIN olist_order_items_dataset i
-  ON o.order_id = i.order_id
-LEFT JOIN olist_products_dataset p
-	   ON i.product_id = p.product_id
-WHERE o.order_status NOT IN ('canceled', 'unavailable')
-GROUP BY category
-ORDER BY revenue_item DESC;
--- ------------------------------------------------------------------------------------
 -- Revenue by Customer Segment
 WITH payment_agg AS (
 	SELECT order_id,
@@ -135,28 +121,6 @@ SELECT month,
 	   AOV,
 	   ROUND((AOV - LAG(AOV) OVER (ORDER BY month)) / LAG(AOV) OVER (ORDER BY month)*100, 2) AS AOV_growth
 FROM monthly_metrics
--- ------------------------------------------------------------------------------------------
--- AOV by Category
-WITH order_category AS (
-	SELECT o.order_id,
-		   COALESCE(p.product_category_name, 'Unknown') AS category,
-		   SUM(i.price + i.freight_value) AS order_category_revenue
-	FROM olist_orders_dataset o
-	JOIN olist_order_items_dataset i
-	  ON o.order_id = i.order_id
-	LEFT JOIN olist_products_dataset p
-	       ON i.product_id = p.product_id
-	WHERE o.order_status NOT IN ('canceled', 'unavailable')
-	GROUP BY o.order_id, category
-)
-
-SELECT category,
-	   SUM(order_category_revenue) AS revenue,
-	   COUNT(DISTINCT order_id) AS orders,
-	   ROUND(SUM(order_category_revenue)/COUNT(DISTINCT order_id), 2) AS AOV
-FROM order_category
-GROUP BY category
-ORDER BY AOV DESC;
 -- ----------------------------------------------------------------------------------------
 -- AOV by Customer Segment
 WITH payment_agg AS (

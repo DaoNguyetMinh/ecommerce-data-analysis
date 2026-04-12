@@ -1,5 +1,5 @@
 -- --------------------------------------------------------
--- 4. Top 5 Customers by Revenue
+-- Top 5 Customers by Revenue
 WITH payment_agg AS (
 	SELECT order_id,
 		SUM(payment_value) AS total_payment
