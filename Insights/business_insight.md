@@ -4,13 +4,13 @@ Total revenue: 15739137.01
 
 AOV overall: 160
 
-Top 3 revenue category: 
+Top 3 revenue category:
 
 * beleza\_saude: 1437665.78 chiếm 9.14%
 * relogios\_presentes: 1298292.47 chiếm 8.25%
 * cama\_mesa\_banho: 1240386.13 chiếm 7.88%
 
-Revenue customer segment: 
+Revenue customer segment:
 
 * One\_time: 14848602.89, số lượng order: 92101, AOV: 161.22
 * Repeat: 853088.12, số lượng order: 2840, AOV: 146.31
@@ -38,75 +38,9 @@ Overall, the business relies heavily on acquiring new customers and driving tran
 
 
 
+Top revenue by state: 
 
+* SP: 10163091.37, AOV: 145.49, revenue\_percent: 64.59%
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+The concentration of both sellers and revenue in São Paulo suggests that the marketplace heavily depends on this region. Expanding seller presence in other states could reduce risk and unlock new growth opportunities.
 
