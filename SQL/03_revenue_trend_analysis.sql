@@ -79,6 +79,31 @@ SELECT segment,
 FROM customer_segment
 GROUP BY segment
 ORDER BY total_revenue DESC;
+-- -------------------------------------------------------------------------------------
+-- Revenue per state
+WITH seller_perf AS (
+    SELECT 
+        s.seller_state,
+        COUNT(DISTINCT o.order_id) AS total_orders,
+        SUM(i.price + i.freight_value) AS total_revenue
+    FROM olist_orders_dataset o
+    JOIN olist_order_items_dataset i
+        ON o.order_id = i.order_id
+    JOIN olist_sellers_dataset s
+        ON i.seller_id = s.seller_id
+    WHERE o.order_status NOT IN ('canceled', 'unavailable')
+    GROUP BY s.seller_state
+)
+
+SELECT 
+    seller_state,
+    total_orders,
+    total_revenue,
+    ROUND(total_revenue / total_orders, 2) AS avg_order_value,
+    ROUND(total_revenue * 100.0 
+        / SUM(total_revenue) OVER (), 2) AS revenue_percent
+FROM seller_perf
+ORDER BY total_revenue DESC;
 -- --------------------------------------------------------------------------------------------
 -- AOV overall approximate 160
 WITH payment_agg AS (

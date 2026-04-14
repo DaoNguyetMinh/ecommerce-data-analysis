@@ -27,32 +27,53 @@ SELECT seller_state,
 FROM olist_sellers_dataset
 GROUP BY seller_state
 ORDER BY total_sellers DESC;
--- -------------------------------------------------------------------------------------
--- revenue per state
-WITH seller_perf AS (
-    SELECT 
-        s.seller_state,
-        COUNT(DISTINCT o.order_id) AS total_orders,
-        SUM(i.price + i.freight_value) AS total_revenue
-    FROM olist_orders_dataset o
-    JOIN olist_order_items_dataset i
-        ON o.order_id = i.order_id
-    JOIN olist_sellers_dataset s
-        ON i.seller_id = s.seller_id
-    WHERE o.order_status NOT IN ('canceled', 'unavailable')
-    GROUP BY s.seller_state
+-- ---------------------------------------------------------------------------------------------------
+-- Evaluation of Review and Delivery Performance Among Top Sellers
+WITH seller_revenue AS (
+	SELECT i.seller_id, s.seller_city, s.seller_state,
+		   SUM(i.price + i.freight_value) AS revenue
+	FROM olist_orders_dataset o
+	JOIN olist_order_items_dataset i
+	  ON o.order_id = i.order_id
+	JOIN olist_sellers_dataset s
+	  ON i.seller_id = s.seller_id
+	WHERE o.order_status NOT IN ('canceled', 'unavailable')
+	GROUP BY i.seller_id, s.seller_city, s.seller_state
+),
+
+top_sellers AS (
+	SELECT *
+	FROM seller_revenue 
+	ORDER BY revenue DESC
+	LIMIT 20
+),
+
+seller_quality AS (
+	SELECT i.seller_id,
+		   ROUND(AVG(r.review_score), 2) AS avg_review_score,
+		   ROUND(AVG(CASE
+		   				 WHEN o.order_delivered_customer_date <= o.order_estimated_delivery_date
+						 THEN 1 ELSE 0
+					 END), 2) AS on_time_delivery_rate
+	FROM olist_orders_dataset o
+	JOIN olist_order_items_dataset i
+	  ON o.order_id = i.order_id
+	LEFT JOIN olist_order_reviews_dataset r
+		   ON o.order_id = r.order_id
+	WHERE o.order_status = 'delivered'
+	GROUP BY i.seller_id
 )
 
-SELECT 
-    seller_state,
-    total_orders,
-    total_revenue,
-    ROUND(total_revenue / total_orders, 2) AS avg_order_value,
-    ROUND(total_revenue * 100.0 
-        / SUM(total_revenue) OVER (), 2) AS revenue_percent
-FROM seller_perf
-ORDER BY total_revenue DESC;
-
+SELECT t.seller_id,
+	   t.seller_city,
+	   t.seller_state,
+	   t.revenue,
+	   q.avg_review_score,
+	   q.on_time_delivery_rate
+FROM top_sellers t
+LEFT JOIN seller_quality q
+	   ON t.seller_id = q.seller_id
+ORDER BY t.revenue DESC;
 
 
 

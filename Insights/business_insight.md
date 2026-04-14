@@ -38,9 +38,57 @@ Overall, the business relies heavily on acquiring new customers and driving tran
 
 
 
-Top revenue by state: 
+Top revenue by state:
 
 * SP: 10163091.37, AOV: 145.49, revenue\_percent: 64.59%
 
 The concentration of both sellers and revenue in São Paulo suggests that the marketplace heavily depends on this region. Expanding seller presence in other states could reduce risk and unlock new growth opportunities.
+
+
+
+Evaluation of Review and Delivery Performance Among Top Sellers:
+
+
+
+Top sellers generally maintain a high on-time delivery rate (\~90%+), indicating strong operational performance among high-revenue sellers.
+
+
+
+While top sellers demonstrate strong delivery performance, this may not reflect the overall system, as high-performing sellers tend to have better logistics capabilities. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
