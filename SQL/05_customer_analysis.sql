@@ -69,7 +69,37 @@ SELECT frequency_bucket,
 FROM buckets
 GROUP BY frequency_bucket
 ORDER BY customers DESC;
+-- -------------------------------------------------------------------------------------------------
+-- Customer type over time
+WITH customer_orders AS (
+	SELECT o.customer_id,
+		   c.customer_unique_id,
+		   DATE_TRUNC('month', o.order_purchase_timestamp) AS month,
+		   o.order_id
+	FROM olist_orders_dataset o
+	JOIN olist_customers_dataset c
+	  ON o.customer_id = c.customer_id
+	WHERE o.order_status NOT IN ('canceled', 'unavailable')
+),
 
+customer_order_rank AS (
+	SELECT *,
+		   ROW_NUMBER() OVER (PARTITION BY customer_unique_id ORDER BY month) AS order_rank
+	FROM customer_orders
+)
+
+SELECT month,
+	   COUNT(DISTINCT customer_unique_id) AS total_customers,
+	   COUNT(DISTINCT CASE
+	   					  WHEN order_rank = 1 THEN customer_unique_id END) AS new_customers,
+	   COUNT(DISTINCT CASE
+	   					  WHEN order_rank > 1 THEN customer_unique_id END) AS repeat_customers,
+	   ROUND(COUNT(DISTINCT CASE
+	   							WHEN order_rank > 1 THEN customer_unique_id END)*1.0
+			/COUNT(DISTINCT customer_unique_id), 4) AS repeat_rate
+FROM customer_order_rank
+GROUP BY month
+ORDER BY month;
 
 
 

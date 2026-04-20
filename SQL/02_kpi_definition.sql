@@ -12,6 +12,7 @@ SELECT
 	(SELECT COUNT(*) FROM olist_customers_dataset) AS total_customers,
 	(SELECT COUNT(*) FROM olist_sellers_dataset) AS total_sellers;
 
+-- ---------------------------------------------------------
 
 
 
