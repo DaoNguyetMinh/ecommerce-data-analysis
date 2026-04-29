@@ -95,11 +95,9 @@ WITH monthly_category_revenue AS (
 	GROUP BY month, category
 )
 
-SELECT month, category, revenue,
-	   ROUND((revenue - LAG(revenue) OVER (PARTITION BY category ORDER BY month))*1.0
-	   		/ LAG(revenue) OVER (PARTITION BY category ORDER BY month), 2) AS growth_percent
+SELECT month, category, revenue
 FROM monthly_category_revenue
-ORDER BY category, month;
+ORDER BY month, category;
 
 
 
