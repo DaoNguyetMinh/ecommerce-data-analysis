@@ -98,7 +98,26 @@ WITH monthly_category_revenue AS (
 SELECT month, category, revenue
 FROM monthly_category_revenue
 ORDER BY month, category;
+-- ------------------------------------------------------------------------------------------------------------------
+-- Freight cost as % of Product Revenue by Category (RANK)
+WITH cat_freight AS (
+	SELECT COALESCE(pt.product_category_name_english, p.product_category_name) AS category,
+		   COUNT(i.order_item_id) AS items_sold,
+		   ROUND(SUM(i.price), 2) AS total_revenue,
+		   ROUND(SUM(i.freight_value), 2) AS total_freight
+	FROM olist_order_items_dataset i
+	JOIN olist_products_dataset p ON i.product_id = p.product_id
+	LEFT JOIN product_category_name_translation pt ON p.product_category_name = pt.product_category_name
+	GROUP BY COALESCE(pt.product_category_name_english, p.product_category_name)
+	HAVING COUNT(i.order_item_id) > 30
+)
 
+SELECT *,
+	   ROUND(100.0*total_freight / NULLIF(total_revenue, 0), 2) AS freight_pct,
+	   RANK() OVER (ORDER BY total_freight / NULLIF(total_revenue, 0) DESC) AS freight_burden_rank
+FROM cat_freight
+ORDER BY freight_pct DESC
+LIMIT 15;
 
 
 
