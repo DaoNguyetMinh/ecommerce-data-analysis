@@ -30,6 +30,9 @@ monthly_revenue AS (
 	WHERE o.order_status NOT IN ('canceled', 'unavailable')
 	GROUP BY month
 )
+-- Total order: 98206
+-- SELECT SUM(quatily_order)
+-- FROM monthly_revenue;
 
 SELECT month,
 	   revenue,

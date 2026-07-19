@@ -1,92 +1,52 @@
 \### BUSINESS INSIGHT
 
-Total revenue: 15739137.01
 
-AOV overall: 160
 
-Top 3 revenue category:
+\## Revenue
 
-* beleza\_saude: 1437665.78 chiếm 9.14%
-* relogios\_presentes: 1298292.47 chiếm 8.25%
-* cama\_mesa\_banho: 1240386.13 chiếm 7.88%
 
-Revenue customer segment:
 
-* One\_time: 14848602.89, số lượng order: 92101, AOV: 161.22
-* Repeat: 853088.12, số lượng order: 2840, AOV: 146.31
-* High-value: 37446, số lượng order: 48, AOV: 110.95
+Total Revenue: $15.74M
 
+Total Orders: 98,206
 
+Overall AOV: $160
 
-The analysis shows that total revenue (15.7M) is primarily driven by order volume rather than transaction value, with an overall AOV of approximately 160 remaining relatively stable.
+Revenue Peak: November 2017
 
 
 
-Revenue is highly concentrated in one-time customers, who contribute over 94% of total revenue and dominate total order volume. In contrast, repeat and high-value customers represent only a small portion of revenue, and their AOV is even lower than one-time customers. This indicates weak customer retention and a lack of higher-value repeat purchasing behavior.
+Over the \*\*23-month\*\* period from September 2016 to September 2018, the business generated \*\*$15.74M in total revenue\*\* from \*\*98,206 orders\*\*, with an \*\*average order value (AOV) of 160$.\*\*
 
+Revenue experienced a significant surge and reached its highest level in November 2017, generating more than \*\*$1.17M.\*\* This spike was likely driven by the Black Friday shopping season, a well-know seasonal sales event.
 
+Following this peak, revenue growth began to stabilize and show a slight downward trend starting in March 2018, suggesting that the business entered a more mature stage after its rapid growth period.
 
-At the category level, revenue is moderately concentrated, with the top three categories contributing approximately 25% of total revenue. These categories exhibit average AOV, suggesting that their performance is driven by high order volume rather than high-value transactions.
+Finally, revenue dropped sharply in September 2018. This decline should not be interpreted as a deterioration in business performance, as it is caused by the dataset ending during that month, resulting in incomplete data.
 
 
 
-Meanwhile, certain categories such as "pcs" show significantly higher AOV but low revenue contribution, indicating the presence of high-value but low-demand segments.
+\## Category
 
 
 
-Overall, the business relies heavily on acquiring new customers and driving transaction volume, while lacking strong retention and high-value customer development. This suggests an opportunity to improve customer lifetime value and build more sustainable revenue growth.
+An \*\*ABC Analysis\*\* was conducted to identify the product categories, generating \*\*approximately $12.5M\*\*, which accounts for nearly \*\*80% of total revenue\*\*. These categories mainly include \*\*Health \& Beauty, Sports \& Leisure, Home \& Living,\*\* and other high-performing products. A positive finding is that all Category A products have \*\*freight costs below the platform's average freight burden of 29.04% of product value\*\*, indicating that these categories not only generate strong revenue but also maintain relatively efficient logistics costs.
 
+In contrast, \*\*Category C\*\* generated only \*\*$823,894\*\*, contributing approximately \*\*5% of total revenue\*\*. These categories consist of products with relatively low revenue contribution and low sales volume. Combined with freight burden analysis, several categories such as \*\*Flowers, Furniture/Mattress \& Upholstery, and Christmas Supplies\*\* exhibit disproportionately high shipping costs relative to their revenue. Therefore, the business may consider reducing investment, limiting inventory, or even discontinuing some of these product categories to optimize operational costs and improve overall profitability.
 
 
-Top revenue by state:
 
-* SP: 10163091.37, AOV: 145.49, revenue\_percent: 64.59%
 
-The concentration of both sellers and revenue in São Paulo suggests that the marketplace heavily depends on this region. Expanding seller presence in other states could reduce risk and unlock new growth opportunities.
 
+\## Geographic Distribution of Sellers
 
 
-Evaluation of Review and Delivery Performance Among Top Sellers:
 
+The top five seller regions are \*\*São Paulo (SP), Paraná (PR), Minas Gerais (MG), Santa Catarina (SC), and Rio de Janeiro (RJ)\*\*. A common characteristic of these regions is their close proximity to Olist's headquarters in \*\*São Paulo (SP)\*\*.
 
+This geographic concentration allows sellers to take better advantage of Olist's logistics infrastructure, contributing to more efficient operations and faster deliveries. However, it also creates a degree of \*\*geographic dependency\*\*. Any major disruption to the logistics network or operations in the São Paulo (SP) could have a significant impact on the business, as a large proportion of sellers rely on the same operational hub.
 
-Top sellers generally maintain a high on-time delivery rate (\~90%+), indicating strong operational performance among high-revenue sellers.
-
-
-
-While top sellers demonstrate strong delivery performance, this may not reflect the overall system, as high-performing sellers tend to have better logistics capabilities. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+&#x20; 
 
 
 
