@@ -1,9 +1,3 @@
--- ========================================================
--- OLIST ECOMMERCE ANALYSIS
--- Author: Dao Nguyet Minh
--- Date: 07/03/2026
--- 1. DATA QUALITY CHECK
--- ========================================================
 -- CHECK NULL VALUES
 SELECT COUNT(*)
 FROM olist_orders_dataset
